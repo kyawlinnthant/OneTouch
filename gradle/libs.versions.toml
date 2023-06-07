@@ -1,0 +1,135 @@
+[versions]
+kotlin = "1.8.21"
+gradle = "8.0.0"
+core-ktx = "1.10.1"
+lifecycle-runtime-ktx = "2.6.1"
+compose-bom = "2023.05.01"
+compose-activity = "1.7.1"
+compose-compiler = "1.4.7"
+compose-material3 = "1.1.0"
+test-unit-junit = "4.13.2"
+test-android-junit = "1.1.5"
+test-android-espresso = "3.5.1"
+composeNavigation = "2.5.3"
+serializationJson = "1.4.1"
+okhttp = "4.10.0"
+retrofit = "2.9.0"
+retrofitCoroutinesAdapter = "0.9.2"
+okhttpProfiler = "1.0.8"
+retrofitSerialization = "1.0.0"
+hilt = "2.44.2"
+hiltExt = "1.0.0"
+hiltNavigation = "1.0.0"
+room = "2.5.1"
+
+firebase-bom = "32.1.0"
+gms-auth = "20.5.0"
+google-services = "4.3.15"
+multidex = "2.0.1"
+
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-lifecycle-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
+#compose
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+
+androidx-compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "compose-activity" }
+
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "compose-material3" }
+androidx-compose-material3-window = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "compose-material3" }
+androidx-compose-ui-tooling-debug = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationJson" }
+#retrofit
+network-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+network-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+network-retrofit-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitSerialization" }
+network-retrofit-coroutines = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlin-coroutines-adapter", version.ref = "retrofitCoroutinesAdapter" }
+network-profiler = { group = "com.localebro", name = "okhttpprofiler", version.ref = "okhttpProfiler" }
+#hilt
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+#room
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+#unit test
+test-unit-junit = { group = "junit", name = "junit", version.ref = "test-unit-junit" }
+#android test
+test-android-junit = { group = "androidx.test.ext", name = "junit", version.ref = "test-android-junit" }
+test-android-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "test-android-espresso" }
+test-android-compose-junit = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+#firebase
+
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-gms-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "gms-auth" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+
+#gradle plugin
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
+[bundles]
+firebase = [
+    "firebase.gms.auth",
+    "firebase.auth"
+]
+androidx-core = [
+    "androidx.core.ktx",
+    "androidx.lifecycle.ktx",
+    "androidx.multidex"
+]
+androidx-compose = [
+    "androidx.compose.activity",
+    "androidx.compose.ui",
+    "androidx.compose.ui.graphics",
+    "androidx.compose.ui.tooling.preview",
+    "androidx.compose.foundation",
+    "androidx.compose.foundation.layout",
+    "androidx.compose.runtime",
+    "androidx.compose.material3",
+    "androidx.compose.material3.window",
+    "compose-navigation"
+]
+androidx-compose-debug = [
+    "androidx.compose.ui.tooling.debug",
+    "androidx.compose.ui.test.manifest"
+]
+
+network = [
+    "network.okhttp",
+    "network.retrofit",
+    "network.retrofit.serialization",
+    "network.retrofit.coroutines",
+    "network.profiler"
+]
+hilt = [
+    "hilt.android",
+    "hilt.navigation"
+]
+room = [
+    "room.ktx",
+    "room.runtime"
+]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "gradle" }
+android-library = { id = "com.android.library", version.ref = "gradle" }
+android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
