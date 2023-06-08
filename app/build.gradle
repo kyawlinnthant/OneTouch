@@ -32,6 +32,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
@@ -53,6 +54,7 @@ android {
 
 dependencies {
 
+    coreLibraryDesugaring(libs.desugaring)
     implementation(platform(libs.firebase.bom))
     implementation(libs.bundles.firebase)
 
@@ -64,6 +66,7 @@ dependencies {
     implementation(libs.kotlinx.serialization)
     implementation(libs.bundles.network)
     implementation(libs.bundles.room)
+    implementation(libs.bundles.datastore)
     implementation(libs.bundles.hilt)
     kapt(libs.hilt.compiler)
     kapt(libs.room.compiler)
