@@ -3,6 +3,7 @@ package com.kyawlinnthant.onetouch.presentation.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kyawlinnthant.onetouch.domain.Repository
+import com.kyawlinnthant.onetouch.navigation.AppNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,11 +12,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repo: Repository
+    private val repo: Repository,
+    private val appNavigator: AppNavigator
 ) : ViewModel() {
 
     private val vmLoggedIn = MutableStateFlow<Boolean?>(null)
     val isLoggedIn get() = vmLoggedIn.asStateFlow()
+
+    val instructor = appNavigator.instructor
 
     init {
         getLoggedIn()

@@ -1,73 +1,49 @@
 package com.kyawlinnthant.onetouch.data
 
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.BeginSignInResult
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue.serverTimestamp
-import com.google.firebase.firestore.FirebaseFirestore
-import com.kyawlinnthant.onetouch.common.Constant
 import com.kyawlinnthant.onetouch.common.DataResult
+import com.kyawlinnthant.onetouch.data.ds.CurrentUser
 import com.kyawlinnthant.onetouch.data.ds.DataStoreSource
 import com.kyawlinnthant.onetouch.domain.Repository
-import com.kyawlinnthant.onetouch.firebase.FirebaseModule
+import com.kyawlinnthant.onetouch.firebase.FirebaseSource
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
-    private val firebaseAuth: FirebaseAuth,
-    private val oneTapClient: SignInClient,
-    @FirebaseModule.SignInRequest private val signInRequest: BeginSignInRequest,
-    @FirebaseModule.SignupRequest private val signupRequest: BeginSignInRequest,
-    private val fireStore: FirebaseFirestore,
-    private val datasource : DataStoreSource,
-
+    private val firebaseSource: FirebaseSource,
+    private val datastoreSource: DataStoreSource,
 ) : Repository {
-    override val isAuthenticated: Boolean
-        get() = firebaseAuth.currentUser != null
-
-    override suspend fun oneTapSignIn(): DataResult<BeginSignInResult> {
-        return try {
-            val sighInResult = oneTapClient.beginSignIn(signInRequest).await()
-            DataResult.Success(sighInResult)
-        } catch (e: Exception) {
-            try {
-                val signupResult = oneTapClient.beginSignIn(signupRequest).await()
-                DataResult.Success(signupResult)
-            } catch (e: Exception) {
-                DataResult.Fail(e.localizedMessage ?: "Something's Wrong!")
-            }
-        }
-    }
-
-    override suspend fun firebaseSignIn(credential: AuthCredential): DataResult<Boolean> {
-        return try {
-            val result = firebaseAuth.signInWithCredential(credential).await()
-            val isNew = result.additionalUserInfo?.isNewUser ?: false
-            if (isNew) {
-                addUserToFireStore()
-            }
-            DataResult.Success(true)
-        } catch (e: Exception) {
-            DataResult.Fail(e.localizedMessage ?: "Something's Wrong!")
-        }
-    }
 
     override suspend fun getAuthenticated(): Boolean {
-        return datasource.pullAuthenticated().firstOrNull()?: false
+        return datastoreSource.pullAuthenticated().firstOrNull() ?: false
     }
 
-    private suspend fun addUserToFireStore() {
-        firebaseAuth.currentUser?.apply {
-            val user = mapOf(
-                Constant.NAME to displayName,
-                Constant.EMAIL to email,
-                Constant.PHOTO to photoUrl?.toString(),
-                Constant.CREATED to serverTimestamp()
-            )
-            fireStore.collection(Constant.USERS).document(uid).set(user).await()
+    override suspend fun getCurrentUser(): Flow<CurrentUser> {
+        return firebaseSource.getCurrentUser()
+    }
+
+    override suspend fun signupWithEmail(email: String, pwd: String): DataResult<Boolean> {
+        return when (val result = firebaseSource.signupWithEmail(email = email, pwd = pwd)) {
+            is DataResult.Fail -> DataResult.Fail(result.message)
+            is DataResult.Success -> {
+                val isSuccessful = result.data != CurrentUser()
+                //save in datastore
+                datastoreSource.putAuthenticated(isSuccessful)
+                DataResult.Success(isSuccessful)
+            }
         }
     }
+
+    override suspend fun signInWithEmail(email: String, pwd: String): DataResult<Boolean> {
+        return when (val result = firebaseSource.signInWithEmail(email = email, pwd = pwd)) {
+            is DataResult.Fail -> DataResult.Fail(result.message)
+            is DataResult.Success -> {
+                val isSuccessful = result.data != CurrentUser()
+                //save in datastore
+                datastoreSource.putAuthenticated(isSuccessful)
+                DataResult.Success(isSuccessful)
+            }
+        }
+    }
+
 }

@@ -25,6 +25,7 @@ class DataStoreSourceImpl @Inject constructor(
     companion object {
         const val PREF_NAME = "ds.pref"
         val IS_AUTHENTICATED = booleanPreferencesKey("ds.pref.authenticated")
+        val ID = stringPreferencesKey("ds.pref.id")
         val NAME = stringPreferencesKey("ds.pref.name")
         val EMAIL = stringPreferencesKey("ds.pref.email")
         val PHOTO = stringPreferencesKey("ds.pref.photo")
@@ -46,6 +47,23 @@ class DataStoreSourceImpl @Inject constructor(
 
             }.map {
                 it[IS_AUTHENTICATED] ?: false
+            }.flowOn(io)
+    }
+
+    override suspend fun putId(id: String) {
+        withContext(io) {
+            store.edit {
+                it[ID] = id
+            }
+        }
+    }
+
+    override suspend fun pullId(): Flow<String> {
+        return store.data
+            .catch { e ->
+                if (e is IOException) emit(emptyPreferences()) else throw e
+            }.map {
+                it[ID] ?: ""
             }.flowOn(io)
     }
 

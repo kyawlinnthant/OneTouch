@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.kyawlinnthant.onetouch.navigation.NavigationInstructor
 import com.kyawlinnthant.onetouch.presentation.feed.FeedScreen
 import com.kyawlinnthant.onetouch.presentation.login.LoginScreen
 import com.kyawlinnthant.onetouch.presentation.password.ForgotPasswordScreen
@@ -19,7 +20,13 @@ import com.kyawlinnthant.onetouch.presentation.register.RegisterScreen
 fun OneTouchGraph() {
     val vm: MainViewModel = hiltViewModel()
     val isLoggedIn = vm.isLoggedIn.collectAsState()
+    val instructor = vm.instructor
     val navController = rememberNavController()
+
+    NavigationInstructor(
+        instructor = instructor,
+        controller = navController
+    )
 
     isLoggedIn.value?.let {
         val startDestination = if (it) Graph.Feature.route else Graph.Auth.route
