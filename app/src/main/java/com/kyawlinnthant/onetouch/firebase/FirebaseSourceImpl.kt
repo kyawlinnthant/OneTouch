@@ -1,8 +1,10 @@
 package com.kyawlinnthant.onetouch.firebase
 
+import android.content.Intent
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.auth.api.identity.SignInCredential
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -38,16 +40,22 @@ class FirebaseSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun firebaseSignIn(credential: AuthCredential): DataResult<Boolean> {
+    override suspend fun getSignInCredential(intent: Intent?): DataResult<SignInCredential> {
         return try {
-            val result = firebaseAuth.signInWithCredential(credential).await()
-            val isNew = result.additionalUserInfo?.isNewUser ?: false
-            if (isNew && firebaseAuth.currentUser != null) {
-                addUserToFireStore(user = firebaseAuth.currentUser!!)
-            }
-            DataResult.Success(true)
+            val result = oneTapClient.getSignInCredentialFromIntent(intent)
+            DataResult.Success(result)
         } catch (e: Exception) {
             DataResult.Fail(e.localizedMessage ?: "Something's Wrong!")
+        }
+    }
+
+    override suspend fun logout(): DataResult<Boolean> {
+        return try {
+            oneTapClient.signOut().await()
+            firebaseAuth.signOut()
+            DataResult.Success(true)
+        } catch (e: Exception) {
+            DataResult.Fail(e.localizedMessage?: "Something's Wrong!")
         }
     }
 
@@ -65,6 +73,23 @@ class FirebaseSourceImpl @Inject constructor(
         return try {
             firebaseAuth.signInWithEmailAndPassword(email, pwd).await()
             val currentUser = firebaseAuth.currentUser?.asUser() ?: CurrentUser()
+            DataResult.Success(currentUser)
+        } catch (e: Exception) {
+            DataResult.Fail(e.localizedMessage ?: "Something's wrong!")
+        }
+    }
+
+    override suspend fun signInWithCredential(credential: AuthCredential): DataResult<CurrentUser> {
+        return try {
+            val result = firebaseAuth.signInWithCredential(credential).await()
+            val isNew = result.additionalUserInfo?.isNewUser ?: false
+            val currentUser = firebaseAuth.currentUser?.asUser() ?: CurrentUser()
+            if (isNew && firebaseAuth.currentUser != null) {
+                addUserToFireStore(user = firebaseAuth.currentUser!!)
+            }
+            if (isNew) {
+                addUserToFireStore(firebaseAuth.currentUser!!)
+            }
             DataResult.Success(currentUser)
         } catch (e: Exception) {
             DataResult.Fail(e.localizedMessage ?: "Something's wrong!")

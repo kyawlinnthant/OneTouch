@@ -60,10 +60,10 @@ object FirebaseModule {
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
                     .setServerClientId(id)
-                    .setFilterByAuthorizedAccounts(true)
+                    .setFilterByAuthorizedAccounts(false) //true for remember
                     .build()
             )
-            .setAutoSelectEnabled(true)
+            .setAutoSelectEnabled(false) // true for remember
             .build()
     }
 

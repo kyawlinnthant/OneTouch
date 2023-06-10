@@ -2,8 +2,10 @@ package com.kyawlinnthant.onetouch.presentation.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kyawlinnthant.onetouch.common.DataResult
 import com.kyawlinnthant.onetouch.domain.Repository
 import com.kyawlinnthant.onetouch.navigation.AppNavigator
+import com.kyawlinnthant.onetouch.presentation.main.Graph
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -39,6 +41,24 @@ class ProfileViewModel @Inject constructor(
                     state.copy(
                         currentUser = it
                     )
+                }
+            }
+        }
+    }
+    fun logout() {
+        viewModelScope.launch {
+            repository.signOut().also {
+                when (it) {
+                    is DataResult.Fail -> {
+
+                    }
+                    is DataResult.Success -> {
+                        navigator.to(
+                            route = Graph.Auth.route,
+                            popupToRoute = Graph.Feature.route,
+                            inclusive = true
+                        )
+                    }
                 }
             }
         }

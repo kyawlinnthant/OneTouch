@@ -27,13 +27,14 @@ gms-auth = "20.5.0"
 google-services = "4.3.15"
 multidex = "2.0.1"
 desugar = "2.0.3"
+coil = "2.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 androidx-lifecycle-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 androidx-multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
 desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar" }
-
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 #compose
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 androidx-compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "compose-activity" }
