@@ -1,6 +1,7 @@
 package com.kyawlinnthant.onetouch.presentation.login
 
 import android.app.Activity
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -43,6 +44,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
 import com.kyawlinnthant.onetouch.theme.OneTouchTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,11 +62,29 @@ fun LoginScreen() {
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartIntentSenderForResult()
     ) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            vm.getSignInCredential(it.data)
-        }else{
-            vm.updateGoogleLoading(false)
+        try {
+            if (it.resultCode == Activity.RESULT_OK) {
+                vm.getSignInCredential(it.data)
+            } else {
+                vm.updateGoogleLoading(false)
+            }
+        } catch (e: ApiException) {
+            when (e.statusCode) {
+                CommonStatusCodes.CANCELED -> {
+                    Log.d("status.code", "cancel")
+                }
+
+                CommonStatusCodes.NETWORK_ERROR -> {
+                    Log.d("status.code", "network")
+
+                }
+                else -> {
+                    Log.d("status.code", "else")
+
+                }
+            }
         }
+
     }
 
     LaunchedEffect(key1 = true) {

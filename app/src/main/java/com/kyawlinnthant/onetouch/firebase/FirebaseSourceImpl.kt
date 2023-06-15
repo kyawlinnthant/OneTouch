@@ -109,11 +109,11 @@ class FirebaseSourceImpl @Inject constructor(
                 Constant.PHOTO to photoUrl?.toString(),
                 Constant.CREATED to serverTimestamp()
             )
-            fireStore.collection(Constant.USERS).document(uid).set(fireStoreUser).await()
+            fireStore.collection(Constant.USERS).document(user.uid).set(fireStoreUser).await()
         }
     }
 
     private suspend fun getUsersFromFireStore() {
-        val users = fireStore.collection(Constant.USERS).get().await()
+//        val users = fireStore.collection(Constant.USERS).whereEqualTo("id",uid)
     }
 }

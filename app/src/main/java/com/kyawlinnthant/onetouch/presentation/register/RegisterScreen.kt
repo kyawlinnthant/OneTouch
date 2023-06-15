@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kyawlinnthant.onetouch.theme.OneTouchTheme
 
@@ -51,13 +52,31 @@ fun RegisterContent(
 
     var email by remember { mutableStateOf("") }
     var pwd by remember { mutableStateOf("") }
+    var shouldShowPickBtn by remember { mutableStateOf(true) }
 
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(paddingValues),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(paddingValues).padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+
+        ProfilePicker(
+            onPick = {
+                shouldShowPickBtn = !shouldShowPickBtn
+            },
+            onCamera = {
+                shouldShowPickBtn = !shouldShowPickBtn
+
+            },
+            onGallery = {
+                shouldShowPickBtn = !shouldShowPickBtn
+            },
+            photoBmp = null,
+            photoUrl = "",
+            shouldShowPick = shouldShowPickBtn
+        )
+
         TextField(
             value = email,
             onValueChange = { email = it },
