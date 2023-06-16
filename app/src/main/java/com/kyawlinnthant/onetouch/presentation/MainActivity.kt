@@ -20,7 +20,9 @@ import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.kyawlinnthant.onetouch.R
 import com.kyawlinnthant.onetouch.theme.OneTouchTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private lateinit var oneTapClient: SignInClient
