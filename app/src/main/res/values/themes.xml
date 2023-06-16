@@ -9,4 +9,20 @@
         <!-- Optional: set the status bar light and content dark. -->
         <item name="android:windowLightStatusBar">true</item>
     </style>
+
+    <style name="Theme.Splash" parent ="Theme.SplashScreen">
+        <!-- Set the splash screen background, animated icon, and animation duration. -->
+        <item name="windowSplashScreenBackground">@android:color/transparent</item>
+
+        <!-- Use windowSplashScreenAnimatedIcon to add either a drawable or an
+             animated drawable. One of these is required. -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/baseline_android_24</item>
+        <!-- Required for animated icons -->
+        <item name="windowSplashScreenAnimationDuration">800</item>
+
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.OneTouch</item>
+
+    </style>
 </resources>

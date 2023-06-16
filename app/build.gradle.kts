@@ -44,6 +44,7 @@ android {
 
 dependencies {
 
+    implementation(libs.splashscreen)
     implementation(libs.bundles.androidx.compose)
     implementation(libs.bundles.androidx.core)
     implementation(libs.bundles.firebase)
