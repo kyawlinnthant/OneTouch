@@ -1,8 +1,8 @@
 package com.kyawlinnthant.onetouch.navigation
 
+import javax.inject.Inject
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
-import javax.inject.Inject
 
 class AppNavigatorImpl @Inject constructor() : AppNavigator {
     override val instructor: Channel<NavigationIntent> = Channel(

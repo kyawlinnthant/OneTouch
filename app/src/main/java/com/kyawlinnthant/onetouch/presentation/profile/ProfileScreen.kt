@@ -39,7 +39,7 @@ fun ProfileContent(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
     user: CurrentUser,
-    onLogout: () -> Unit = {},
+    onLogout: () -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -67,7 +67,8 @@ private fun ProfilePreview() {
     OneTouchTheme {
         Surface {
             ProfileContent(
-                paddingValues = PaddingValues(), user = CurrentUser(
+                paddingValues = PaddingValues(),
+                user = CurrentUser(
                     id = "this is id",
                     name = "this is name",
                     email = "this is email",

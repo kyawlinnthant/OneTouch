@@ -7,13 +7,13 @@ import com.kyawlinnthant.onetouch.domain.Repository
 import com.kyawlinnthant.onetouch.navigation.AppNavigator
 import com.kyawlinnthant.onetouch.presentation.main.Graph
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -50,7 +50,6 @@ class ProfileViewModel @Inject constructor(
             repository.signOut().also {
                 when (it) {
                     is DataResult.Fail -> {
-
                     }
                     is DataResult.Success -> {
                         navigator.to(

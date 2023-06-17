@@ -28,7 +28,9 @@ fun NavigationInstructor(
                 is NavigationIntent.Back -> {
                     if (it.route != null) {
                         controller.popBackStack(it.route, it.inclusive)
-                    } else controller.popBackStack()
+                    } else {
+                        controller.popBackStack()
+                    }
                 }
 
                 is NavigationIntent.To -> {
@@ -43,6 +45,5 @@ fun NavigationInstructor(
                 }
             }
         }
-
     }
 }

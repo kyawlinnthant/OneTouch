@@ -17,5 +17,4 @@ interface AppNavigator {
         inclusive: Boolean = false,
         isSingleTop: Boolean = false
     )
-
 }

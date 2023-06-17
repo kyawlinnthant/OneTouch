@@ -37,15 +37,13 @@ fun PhotoPickerButton(
     onPick: () -> Unit = {},
     onCamera: () -> Unit = {},
     onGallery: () -> Unit = {},
-    hasPhoto: Boolean = false,
+    hasPhoto: Boolean = false
 ) {
-
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-
         AnimatedVisibility(
             visible = !shouldShowPick,
             enter = fadeIn() + slideInHorizontally(initialOffsetX = { -50 }),
@@ -54,13 +52,18 @@ fun PhotoPickerButton(
             OutlinedIconButton(
                 onClick = onCamera,
                 colors = IconButtonDefaults.outlinedIconButtonColors(
-                    containerColor = if (hasPhoto) MaterialTheme.colorScheme.surface.copy(alpha = 0.3f) else Color.Transparent,
+                    containerColor = if (hasPhoto) {
+                        MaterialTheme.colorScheme.surface.copy(
+                            alpha = 0.3f
+                        )
+                    } else {
+                        Color.Transparent
+                    }
                 )
             ) {
                 Icon(painter = painterResource(id = R.drawable.camera), contentDescription = null)
             }
         }
-
 
         AnimatedVisibility(
             visible = shouldShowPick,
@@ -71,13 +74,18 @@ fun PhotoPickerButton(
             OutlinedButton(
                 onClick = onPick,
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = if (hasPhoto) MaterialTheme.colorScheme.surface.copy(alpha = 0.3f) else Color.Transparent,
+                    containerColor = if (hasPhoto) {
+                        MaterialTheme.colorScheme.surface.copy(
+                            alpha = 0.3f
+                        )
+                    } else {
+                        Color.Transparent
+                    }
                 )
             ) {
                 Text(text = "Pick", color = MaterialTheme.colorScheme.onSurface)
             }
         }
-
 
         AnimatedVisibility(
             visible = !shouldShowPick,
@@ -87,16 +95,19 @@ fun PhotoPickerButton(
             OutlinedIconButton(
                 onClick = onGallery,
                 colors = IconButtonDefaults.outlinedIconButtonColors(
-                    containerColor = if (hasPhoto) MaterialTheme.colorScheme.surface.copy(alpha = 0.3f) else Color.Transparent,
+                    containerColor = if (hasPhoto) {
+                        MaterialTheme.colorScheme.surface.copy(
+                            alpha = 0.3f
+                        )
+                    } else {
+                        Color.Transparent
+                    }
                 )
             ) {
                 Icon(painter = painterResource(id = R.drawable.gallery), contentDescription = null)
             }
         }
-
     }
-
-
 }
 
 @Composable

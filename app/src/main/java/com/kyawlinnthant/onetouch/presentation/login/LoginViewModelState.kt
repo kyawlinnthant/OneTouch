@@ -5,7 +5,7 @@ data class LoginViewModelState(
     val googleLoading: Boolean = false,
     val googleEnabled: Boolean = true,
     val errorEmail: Boolean = false,
-    val errorPwd: Boolean = false,
+    val errorPwd: Boolean = false
 ) {
     fun loading() = isLoading
     fun errorEmail() = errorEmail

@@ -6,13 +6,13 @@ import android.provider.OpenableColumns
 import androidx.core.content.FileProvider
 import java.io.File
 
-sealed interface ImageSize{
+sealed interface ImageSize {
     object B : ImageSize
     object KB : ImageSize
     object MB : ImageSize
 }
 
-infix fun Long.asSize(expected : ImageSize) : Long{
+infix fun Long.asSize(expected: ImageSize): Long {
     val bytes = this
     val kb = bytes / 1024
     val mb = kb / 1024
@@ -44,6 +44,7 @@ fun getTmpFileUri(
     }
     return FileProvider.getUriForFile(
         context,
-        authority, tmpFile
+        authority,
+        tmpFile
     )
 }

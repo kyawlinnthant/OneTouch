@@ -82,7 +82,6 @@ sealed class Graph(val route: String) {
     object Feature : Graph("feature")
 }
 
-
 sealed class Screen(val name: String) {
     object Login : Screen("login")
     object Register : Screen("register")

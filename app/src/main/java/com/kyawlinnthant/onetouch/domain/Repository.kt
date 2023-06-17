@@ -26,5 +26,4 @@ interface Repository {
     suspend fun getSignInResult(): DataResult<BeginSignInResult>
 
     suspend fun getSignInCredential(intent: Intent?): DataResult<SignInCredential>
-
 }

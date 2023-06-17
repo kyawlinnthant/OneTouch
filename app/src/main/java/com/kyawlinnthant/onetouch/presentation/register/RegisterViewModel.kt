@@ -7,13 +7,13 @@ import com.kyawlinnthant.onetouch.domain.Repository
 import com.kyawlinnthant.onetouch.navigation.AppNavigator
 import com.kyawlinnthant.onetouch.presentation.main.Graph
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
@@ -60,7 +60,6 @@ class RegisterViewModel @Inject constructor(
                 }
                 when (it) {
                     is DataResult.Fail -> {
-
                     }
 
                     is DataResult.Success -> {

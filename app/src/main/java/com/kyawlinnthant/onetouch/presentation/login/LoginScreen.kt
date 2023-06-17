@@ -81,16 +81,13 @@ fun LoginScreen() {
 
                 CommonStatusCodes.NETWORK_ERROR -> {
                     Log.d("status.code", "network")
-
                 }
 
                 else -> {
                     Log.d("status.code", "else")
-
                 }
             }
         }
-
     }
 
     LaunchedEffect(key1 = true) {
@@ -113,7 +110,6 @@ fun LoginScreen() {
 
     Scaffold(
         topBar = {
-
         },
         snackbarHost = {
             SnackbarHost(hostState = snackState)
@@ -152,7 +148,7 @@ fun LoginContent(
     googleLoading: Boolean = false,
     googleEnabled: Boolean = true,
     emailError: Boolean = false,
-    pwdError: Boolean = false,
+    pwdError: Boolean = false
 ) {
     var email by remember { mutableStateOf("") }
     var pwd by remember { mutableStateOf("") }
@@ -165,7 +161,7 @@ fun LoginContent(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 24.dp)
-            .padding(paddingValues),
+            .padding(paddingValues)
     ) {
         Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(
@@ -191,7 +187,6 @@ fun LoginContent(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             TextField(
                 modifier = modifier.fillMaxWidth(),
                 value = email,
@@ -202,7 +197,7 @@ fun LoginContent(
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Email
                 ),
-                isError = emailError,
+                isError = emailError
             )
 
             Spacer(modifier = modifier.height(8.dp))
@@ -225,7 +220,6 @@ fun LoginContent(
 
             )
             if (isFocused) {
-
                 Text(
                     text = pwdHint,
                     style = MaterialTheme.typography.labelSmall,
@@ -255,7 +249,7 @@ fun LoginContent(
             GoogleButton(
                 onClick = onGoogleLogin,
                 loading = googleLoading,
-                enabled = googleEnabled,
+                enabled = googleEnabled
             )
         }
     }
@@ -271,7 +265,7 @@ private fun LoginContentPreview() {
                 onLogin = { _, _ -> },
                 onRegister = {},
                 onPassword = {},
-                onGoogleLogin = {},
+                onGoogleLogin = {}
             )
         }
     }

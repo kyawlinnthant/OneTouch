@@ -1,7 +1,6 @@
 package com.kyawlinnthant.onetouch.presentation.register
 
 import android.net.Uri
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,22 +25,22 @@ fun ProfilePicker(
     onCamera: () -> Unit = {},
     onGallery: () -> Unit = {},
     uri: Uri = Uri.EMPTY,
-    shouldShowPick: Boolean = true,
+    shouldShowPick: Boolean = true
 ) {
     Box(
         modifier = modifier
             .size(180.dp)
             .clip(RoundedCornerShape(16.dp)),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
-        if (uri != Uri.EMPTY){
+        if (uri != Uri.EMPTY) {
             AsyncImage(
                 model = uri,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = modifier.fillMaxSize()
             )
-        }else{
+        } else {
             Box(
                 modifier = modifier
                     .fillMaxSize()

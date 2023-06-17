@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.kyawlinnthant.onetouch.domain.Repository
 import com.kyawlinnthant.onetouch.navigation.AppNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -30,5 +30,4 @@ class MainViewModel @Inject constructor(
             vmLoggedIn.value = repo.getAuthenticated()
         }
     }
-
 }

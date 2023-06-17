@@ -7,6 +7,7 @@ plugins {
     id("kyawlinnthant.hilt")
     id("kyawlinnthant.firebase")
     alias(libs.plugins.kotlin.serialization)
+    id("org.jlleitschuh.gradle.ktlint").version("11.4.0")
 }
 
 android {
@@ -16,7 +17,7 @@ android {
     defaultConfig {
         applicationId = "com.kyawlinnthant.onetouch"
         versionCode = 1
-        versionName = "0.0.1" //X.Y.Z ( Major.Minor.Patch)
+        versionName = "0.0.1" // X.Y.Z ( Major.Minor.Patch)
         multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -39,6 +40,18 @@ android {
     }
     buildFeatures {
         buildConfig = true
+    }
+}
+
+// tasks.getByPath("preBuild").dependsOn("ktlintFormat")
+
+ktlint {
+    android.set(true)
+    ignoreFailures.set(true)
+    reporters {
+        reporter(reporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+        reporter(reporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+        reporter(reporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType.SARIF)
     }
 }
 

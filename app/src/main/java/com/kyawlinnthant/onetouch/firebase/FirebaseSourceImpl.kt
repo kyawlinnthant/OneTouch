@@ -13,17 +13,17 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.kyawlinnthant.onetouch.common.Constant
 import com.kyawlinnthant.onetouch.common.DataResult
 import com.kyawlinnthant.onetouch.data.ds.CurrentUser
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
 
 class FirebaseSourceImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val oneTapClient: SignInClient,
     @FirebaseModule.SignInRequest private val signInRequest: BeginSignInRequest,
     @FirebaseModule.SignupRequest private val signupRequest: BeginSignInRequest,
-    private val fireStore: FirebaseFirestore,
+    private val fireStore: FirebaseFirestore
 ) : FirebaseSource {
 
     override suspend fun oneTapSignIn(): DataResult<BeginSignInResult> {
@@ -55,7 +55,7 @@ class FirebaseSourceImpl @Inject constructor(
             firebaseAuth.signOut()
             DataResult.Success(true)
         } catch (e: Exception) {
-            DataResult.Fail(e.localizedMessage?: "Something's Wrong!")
+            DataResult.Fail(e.localizedMessage ?: "Something's Wrong!")
         }
     }
 

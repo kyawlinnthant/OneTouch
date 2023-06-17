@@ -13,13 +13,13 @@ import com.kyawlinnthant.onetouch.domain.SignInWithEmailResponse
 import com.kyawlinnthant.onetouch.domain.SignOutResponse
 import com.kyawlinnthant.onetouch.domain.SignUpWithEmailResponse
 import com.kyawlinnthant.onetouch.firebase.FirebaseSource
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
-import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
     private val firebaseSource: FirebaseSource,
-    private val datastoreSource: DataStoreSource,
+    private val datastoreSource: DataStoreSource
 ) : Repository {
 
     override suspend fun getAuthenticated(): Boolean {
@@ -35,7 +35,7 @@ class RepositoryImpl @Inject constructor(
             is DataResult.Fail -> DataResult.Fail(result.message)
             is DataResult.Success -> {
                 val isSuccessful = result.data != CurrentUser()
-                //save in datastore
+                // save in datastore
                 datastoreSource.putAuthenticated(isSuccessful)
                 DataResult.Success(isSuccessful)
             }
@@ -47,7 +47,7 @@ class RepositoryImpl @Inject constructor(
             is DataResult.Fail -> DataResult.Fail(result.message)
             is DataResult.Success -> {
                 val isSuccessful = result.data != CurrentUser()
-                //save in datastore
+                // save in datastore
                 datastoreSource.putAuthenticated(isSuccessful)
                 DataResult.Success(isSuccessful)
             }
@@ -80,5 +80,4 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getSignInCredential(intent: Intent?): DataResult<SignInCredential> {
         return firebaseSource.getSignInCredential(intent)
     }
-
 }

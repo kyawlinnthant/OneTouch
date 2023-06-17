@@ -8,14 +8,14 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.kyawlinnthant.onetouch.common.DispatcherModule
+import java.io.IOException
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import java.io.IOException
-import javax.inject.Inject
 
 class DataStoreSourceImpl @Inject constructor(
     private val store: DataStore<Preferences>,
@@ -44,7 +44,6 @@ class DataStoreSourceImpl @Inject constructor(
         return store.data
             .catch { e ->
                 if (e is IOException) emit(emptyPreferences()) else throw e
-
             }.map {
                 it[IS_AUTHENTICATED] ?: false
             }.flowOn(io)
@@ -79,7 +78,6 @@ class DataStoreSourceImpl @Inject constructor(
         return store.data
             .catch { e ->
                 if (e is IOException) emit(emptyPreferences()) else throw e
-
             }.map {
                 it[NAME] ?: ""
             }.flowOn(io)
@@ -97,7 +95,6 @@ class DataStoreSourceImpl @Inject constructor(
         return store.data
             .catch { e ->
                 if (e is IOException) emit(emptyPreferences()) else throw e
-
             }.map {
                 it[EMAIL] ?: ""
             }.flowOn(io)
@@ -115,7 +112,6 @@ class DataStoreSourceImpl @Inject constructor(
         return store.data
             .catch { e ->
                 if (e is IOException) emit(emptyPreferences()) else throw e
-
             }.map {
                 it[PHOTO] ?: ""
             }.flowOn(io)
@@ -133,7 +129,6 @@ class DataStoreSourceImpl @Inject constructor(
         return store.data
             .catch { e ->
                 if (e is IOException) emit(emptyPreferences()) else throw e
-
             }.map {
                 it[CREATED] ?: 0L
             }.flowOn(io)

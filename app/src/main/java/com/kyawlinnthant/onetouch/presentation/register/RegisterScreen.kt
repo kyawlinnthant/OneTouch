@@ -67,7 +67,9 @@ fun RegisterScreen() {
                     val bmpSize = size asSize ImageSize.MB
                     if (bmpSize >= Constant.IMAGE_SIZE_LIMIT) {
                         scope.launch {
-                            snackState.showSnackbar("Selected photo's size is larger than ${Constant.IMAGE_SIZE_LIMIT} MB")
+                            snackState.showSnackbar(
+                                "Selected photo's size is larger than ${Constant.IMAGE_SIZE_LIMIT} MB"
+                            )
                         }
                         return@rememberLauncherForActivityResult
                     }
@@ -93,7 +95,9 @@ fun RegisterScreen() {
             val bmpSize = size asSize ImageSize.MB
             if (bmpSize >= Constant.IMAGE_SIZE_LIMIT) {
                 scope.launch {
-                    snackState.showSnackbar("Selected photo's size is larger than ${Constant.IMAGE_SIZE_LIMIT} MB")
+                    snackState.showSnackbar(
+                        "Selected photo's size is larger than ${Constant.IMAGE_SIZE_LIMIT} MB"
+                    )
                 }
                 return@rememberLauncherForActivityResult
             }
@@ -106,7 +110,6 @@ fun RegisterScreen() {
     }
     Scaffold(
         topBar = {
-
         },
         snackbarHost = {
             SnackbarHost(hostState = snackState)
@@ -119,12 +122,14 @@ fun RegisterScreen() {
             onPickFromCamera = {
                 tmpUri = getTmpFileUri(
                     context = context,
-                    prefix = "hello",
+                    prefix = "hello"
                 )
                 cameraLauncher.launch(tmpUri)
             },
             onPickFromGallery = {
-                galleryLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                galleryLauncher.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
             },
             tmpUri = photoUri.value
         )
@@ -139,10 +144,8 @@ fun RegisterContent(
     isLoading: Boolean = false,
     onPickFromCamera: () -> Unit,
     onPickFromGallery: () -> Unit,
-    tmpUri: Uri,
+    tmpUri: Uri
 ) {
-
-
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var pwd by remember { mutableStateOf("") }
@@ -154,7 +157,7 @@ fun RegisterContent(
             .fillMaxSize()
             .padding(paddingValues)
             .padding(horizontal = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(
@@ -186,7 +189,6 @@ fun RegisterContent(
                 onCamera = {
                     onPickFromCamera()
                     shouldShowPickBtn = !shouldShowPickBtn
-
                 },
                 onGallery = {
                     onPickFromGallery()
@@ -259,8 +261,6 @@ fun RegisterContent(
                 Text(text = "loading")
             }
         }
-
-
     }
 }
 
@@ -275,7 +275,7 @@ private fun RegisterPreview() {
                 isLoading = true,
                 onPickFromGallery = {},
                 onPickFromCamera = {},
-                tmpUri = Uri.EMPTY,
+                tmpUri = Uri.EMPTY
             )
         }
     }

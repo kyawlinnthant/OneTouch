@@ -12,14 +12,13 @@ interface FirebaseSource {
     suspend fun signupWithEmail(email: String, pwd: String): DataResult<CurrentUser>
     suspend fun signInWithEmail(email: String, pwd: String): DataResult<CurrentUser>
 
-    suspend fun signInWithCredential(credential: AuthCredential) : DataResult<CurrentUser>
+    suspend fun signInWithCredential(credential: AuthCredential): DataResult<CurrentUser>
 
-    suspend fun getCurrentUser() : Flow<CurrentUser>
+    suspend fun getCurrentUser(): Flow<CurrentUser>
 
     suspend fun oneTapSignIn(): DataResult<BeginSignInResult>
 
-    suspend fun getSignInCredential(intent : Intent?) : DataResult<SignInCredential>
+    suspend fun getSignInCredential(intent: Intent?): DataResult<SignInCredential>
 
-    suspend fun logout() : DataResult<Boolean>
-
+    suspend fun logout(): DataResult<Boolean>
 }

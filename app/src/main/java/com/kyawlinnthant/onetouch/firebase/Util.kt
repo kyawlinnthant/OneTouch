@@ -8,6 +8,6 @@ fun FirebaseUser.asUser(): CurrentUser {
         id = this.uid,
         name = this.displayName ?: "",
         email = this.email ?: "",
-        photo = this.photoUrl?.toString() ?: "",
+        photo = this.photoUrl?.toString() ?: ""
     )
 }

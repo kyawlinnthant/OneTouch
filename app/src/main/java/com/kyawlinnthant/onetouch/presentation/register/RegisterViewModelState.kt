@@ -8,7 +8,7 @@ data class RegisterViewModelState(
     val errorName: Boolean = false,
     val errorEmail: Boolean = false,
     val errorPwd: Boolean = false,
-    val errorConfirmPwd: Boolean = false,
+    val errorConfirmPwd: Boolean = false
 ) {
     fun loading() = isLoading
     fun tmpUri() = tmpUri

@@ -4,7 +4,7 @@ sealed interface NavigationIntent {
 
     data class Back(
         val route: String? = null,
-        val inclusive: Boolean = false,
+        val inclusive: Boolean = false
     ) : NavigationIntent
 
     data class To(
@@ -14,5 +14,3 @@ sealed interface NavigationIntent {
         val isSingleTop: Boolean = false
     ) : NavigationIntent
 }
-
-

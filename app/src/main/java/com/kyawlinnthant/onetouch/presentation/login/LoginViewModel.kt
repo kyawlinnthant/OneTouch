@@ -11,6 +11,7 @@ import com.kyawlinnthant.onetouch.navigation.AppNavigator
 import com.kyawlinnthant.onetouch.presentation.main.Graph
 import com.kyawlinnthant.onetouch.presentation.main.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,12 +20,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val repo: Repository,
-    private val navigator: AppNavigator,
+    private val navigator: AppNavigator
 ) : ViewModel() {
 
     private val vmEvent = MutableSharedFlow<LoginEvent>()
@@ -124,7 +124,7 @@ class LoginViewModel @Inject constructor(
         vmState.update {
             it.copy(
                 googleLoading = true,
-                googleEnabled = false,
+                googleEnabled = false
             )
         }
         viewModelScope.launch {
@@ -134,7 +134,7 @@ class LoginViewModel @Inject constructor(
                         vmState.update { state ->
                             state.copy(
                                 googleLoading = false,
-                                googleEnabled = true,
+                                googleEnabled = true
                             )
                         }
                         vmEvent.emit(LoginEvent.Snack(it.message))
@@ -154,7 +154,6 @@ class LoginViewModel @Inject constructor(
             )
         }
     }
-
 
     fun getSignInCredential(intent: Intent?) {
         viewModelScope.launch {
@@ -195,6 +194,4 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
-
-
 }
