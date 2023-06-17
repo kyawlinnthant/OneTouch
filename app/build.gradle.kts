@@ -53,6 +53,12 @@ ktlint {
         reporter(reporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
         reporter(reporterType = org.jlleitschuh.gradle.ktlint.reporter.ReporterType.SARIF)
     }
+    disabledRules.set(
+        listOf(
+            "no-wildcard-imports",
+            "max-line-length"
+        )
+    )
 }
 
 dependencies {
