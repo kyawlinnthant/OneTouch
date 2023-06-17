@@ -7,7 +7,7 @@ plugins {
     id("kyawlinnthant.hilt")
     id("kyawlinnthant.firebase")
     alias(libs.plugins.kotlin.serialization)
-    id("org.jlleitschuh.gradle.ktlint").version("11.4.0")
+    alias(libs.plugins.ktlint)
 }
 
 android {
