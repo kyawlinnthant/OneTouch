@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +20,8 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -39,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
+import com.kyawlinnthant.onetouch.R
 import com.kyawlinnthant.onetouch.theme.OneTouchTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,6 +83,7 @@ fun LoginScreen() {
                     Log.d("status.code", "network")
 
                 }
+
                 else -> {
                     Log.d("status.code", "else")
 
@@ -91,9 +97,7 @@ fun LoginScreen() {
         vm.uiEvent.collect {
             when (it) {
                 is LoginEvent.LaunchGoogleAccounts -> launcher.launch(
-                    IntentSenderRequest.Builder(
-                        it.result.pendingIntent.intentSender
-                    ).build()
+                    IntentSenderRequest.Builder(it.result.pendingIntent.intentSender).build()
                 )
 
                 is LoginEvent.Snack -> snackState.showSnackbar(message = it.message)
@@ -163,7 +167,23 @@ fun LoginContent(
             .padding(horizontal = 24.dp)
             .padding(paddingValues),
     ) {
-        Text(text = "Login", style = MaterialTheme.typography.displayLarge)
+        Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = "Login",
+                style = MaterialTheme.typography.displayLarge,
+                modifier = modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            )
+            IconButton(onClick = { }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.theme),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
+
         Column(
             modifier = modifier
                 .fillMaxWidth()

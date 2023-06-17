@@ -1,6 +1,6 @@
 package com.kyawlinnthant.onetouch.presentation.register
 
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -26,8 +26,7 @@ fun ProfilePicker(
     onPick: () -> Unit = {},
     onCamera: () -> Unit = {},
     onGallery: () -> Unit = {},
-    photoUrl: String = "",
-    photoBmp: Bitmap? = null,
+    uri: Uri = Uri.EMPTY,
     shouldShowPick: Boolean = true,
 ) {
     Box(
@@ -36,38 +35,27 @@ fun ProfilePicker(
             .clip(RoundedCornerShape(16.dp)),
         contentAlignment = Alignment.Center,
     ) {
-
-        if (photoBmp == null && photoUrl.isEmpty()) {
+        if (uri != Uri.EMPTY){
+            AsyncImage(
+                model = uri,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = modifier.fillMaxSize()
+            )
+        }else{
             Box(
                 modifier = modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.primary.copy(0.3f))
+                    .background(MaterialTheme.colorScheme.onSurface.copy(0.3f))
             )
-        } else {
-            photoBmp?.let {
-                Image(
-                    bitmap = it.asImageBitmap(),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = modifier.fillMaxSize()
-                )
-            } ?: kotlin.run {
-                AsyncImage(
-                    model = photoUrl,
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = modifier.fillMaxSize()
-                )
-            }
         }
-
-
 
         PhotoPickerButton(
             shouldShowPick = shouldShowPick,
             onPick = onPick,
             onCamera = onCamera,
             onGallery = onGallery,
+            hasPhoto = uri != Uri.EMPTY
         )
     }
 }

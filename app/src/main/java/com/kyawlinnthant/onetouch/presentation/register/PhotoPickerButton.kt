@@ -12,7 +12,10 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Surface
@@ -20,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kyawlinnthant.onetouch.R
@@ -33,6 +37,7 @@ fun PhotoPickerButton(
     onPick: () -> Unit = {},
     onCamera: () -> Unit = {},
     onGallery: () -> Unit = {},
+    hasPhoto: Boolean = false,
 ) {
 
     Row(
@@ -46,7 +51,12 @@ fun PhotoPickerButton(
             enter = fadeIn() + slideInHorizontally(initialOffsetX = { -50 }),
             exit = fadeOut() + slideOutHorizontally(targetOffsetX = { -50 })
         ) {
-            OutlinedIconButton(onClick = onCamera) {
+            OutlinedIconButton(
+                onClick = onCamera,
+                colors = IconButtonDefaults.outlinedIconButtonColors(
+                    containerColor = if (hasPhoto) MaterialTheme.colorScheme.surface.copy(alpha = 0.3f) else Color.Transparent,
+                )
+            ) {
                 Icon(painter = painterResource(id = R.drawable.camera), contentDescription = null)
             }
         }
@@ -58,8 +68,13 @@ fun PhotoPickerButton(
             enter = fadeIn() + scaleIn(),
             exit = fadeOut() + shrinkOut(shrinkTowards = Alignment.Center) + scaleOut()
         ) {
-            OutlinedButton(onClick = onPick) {
-                Text(text = "Pick")
+            OutlinedButton(
+                onClick = onPick,
+                colors = ButtonDefaults.outlinedButtonColors(
+                    containerColor = if (hasPhoto) MaterialTheme.colorScheme.surface.copy(alpha = 0.3f) else Color.Transparent,
+                )
+            ) {
+                Text(text = "Pick", color = MaterialTheme.colorScheme.onSurface)
             }
         }
 
@@ -71,6 +86,9 @@ fun PhotoPickerButton(
         ) {
             OutlinedIconButton(
                 onClick = onGallery,
+                colors = IconButtonDefaults.outlinedIconButtonColors(
+                    containerColor = if (hasPhoto) MaterialTheme.colorScheme.surface.copy(alpha = 0.3f) else Color.Transparent,
+                )
             ) {
                 Icon(painter = painterResource(id = R.drawable.gallery), contentDescription = null)
             }

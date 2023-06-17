@@ -29,6 +29,25 @@ class RegisterViewModel @Inject constructor(
             started = SharingStarted.Eagerly,
             initialValue = vmState.value.loading()
         )
+    val tmpUri = vmState
+        .map(RegisterViewModelState::tmpUri)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = vmState.value.tmpUri()
+        )
+
+    fun onAction(action: RegisterAction) {
+        when (action) {
+            is RegisterAction.UpdateTmpUri -> {
+                vmState.update {
+                    it.copy(
+                        tmpUri = action.uri
+                    )
+                }
+            }
+        }
+    }
 
     fun signup(email: String, pwd: String) {
         vmState.update {
